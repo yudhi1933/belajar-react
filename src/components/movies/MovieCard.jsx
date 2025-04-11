@@ -1,15 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import MovieService from '../../services/MovieService';
+import React from "react";
+import { Link } from "react-router-dom";
+import MovieService from "../../services/MovieService";
 
 const MovieCard = ({ movie }) => {
-  const { 
-    id, 
-    title, 
-    poster_path, 
-    vote_average, 
-    release_date 
-  } = movie;
+  const { id, title, poster_path, vote_average, release_date } = movie;
 
   const imageUrl = MovieService.getImageUrl(poster_path);
 
@@ -18,14 +12,10 @@ const MovieCard = ({ movie }) => {
       <Link to={`/movie/${id}`}>
         <div className="relative">
           {/* Poster Film */}
-          <img 
-            src={imageUrl} 
-            alt={title} 
-            className="w-full h-[450px] object-cover"
-          />
-          
+          <img src={imageUrl} alt={title} className="w-full h-[450px] object-cover" />
+
           {/* Overlay Informasi */}
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex flex-col justify-end p-4">
+          <div className="absolute inset-0 group-hover:bg-opacity-50 transition-all duration-300 flex flex-col justify-end p-4">
             <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <h3 className="text-lg font-bold truncate">{title}</h3>
               <div className="flex justify-between items-center mt-2">
@@ -35,9 +25,7 @@ const MovieCard = ({ movie }) => {
                   </svg>
                   {vote_average.toFixed(1)}
                 </span>
-                <span className="text-sm">
-                  {new Date(release_date).getFullYear()}
-                </span>
+                <span className="text-sm">{new Date(release_date).getFullYear()}</span>
               </div>
             </div>
           </div>

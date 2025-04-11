@@ -17,8 +17,9 @@ function App() {
         <Route path="/about" element={<h1>About</h1>} />
         <Route path="/crud" element={<UserManagement />} />
         <Route path="/movie/:id" element={<MovieDetailPage />} />
-            <Route path="/search" element={<SearchResultsPage />} />
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
+        <Route path="/search" element={<SearchResultsPage />} />
+        {/* <Route path="*" element={<NotFoundPage />} /> */}
+        <Route path ="API" element={<h1>API</h1>} />
       </Routes>
     </BrowserRouter>
   )

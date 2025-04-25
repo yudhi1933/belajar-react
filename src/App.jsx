@@ -8,6 +8,7 @@ import MenuIndex from './pages/Restaurant/MenuIndex';
 import CreateMenu from './pages/Restaurant/CreateMenu';
 import UpdateMenu from './pages/Restaurant/UpdateMenu';
 import DeleteMenu from './pages/Restaurant/DeleteMenu';
+// import TambahTypeMenu from './pages/Restaurant/TambahTypeMenu';
 
 
 
@@ -16,19 +17,21 @@ function App() {
     <BrowserRouter basename="/belajar-react">
       {/* <Navbar /> */}
       <Routes>
+        {/* CRUD Routes */}
         <Route path="/" element={<h1>Home</h1>} />
         <Route path="/about" element={<h1>About</h1>} />
         <Route path="/crud" element={<UserManagement />} />
+
+        {/* Movie Routes */}
         <Route path="/movie/:id" element={<MovieDetailPage />} />
         <Route path="/search" element={<SearchResultsPage />} />
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
-        {/* <Route path ="/restaurantAPI" element={<MenuList />} /> */}
 
         {/* restaurant Routes */}
         <Route path="/restaurant" element={<MenuIndex />} />
         <Route path="/restaurant/create" element={<CreateMenu />} />
-        <Route path="/restaurant/update/:id" element={<UpdateMenu />} />
+        <Route path="/restaurant/edit/:id" element={<UpdateMenu />} />
         <Route path="/restaurant/delete/:id" element={<DeleteMenu />} />
+        {/* <Route path ="/restaurant/tambahType/:id" element={<TambahTypeMenu/>} /> */}
       </Routes>
     </BrowserRouter>
   )

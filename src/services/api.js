@@ -34,3 +34,15 @@ export const productApi = {
     return true;
   }
 };
+
+export const typeProductApi = {
+  getAllTypeProduct: async () => {
+    const response = await apiClient.get('/type-products');
+    return response.data;
+  },
+
+  createTypeProduct: async (data) => {
+    const response = await apiClient.post('/type-products',data);
+    return response.data;
+  },
+}

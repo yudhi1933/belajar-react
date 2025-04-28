@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { productApi, typeProductApi } from "../../services/api";
+import UpdateTypeProduct from "../../components/Restaurant/UpdateTypeProduct";
+import EditTypeProductModal from "../../components/Restaurant/EditTypeProductModal";
 
 const UpdateMenu = () => {
   const { id } = useParams();
@@ -17,6 +19,8 @@ const UpdateMenu = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editedTypeProduct, setEditedTypeProduct] = useState([]);
 
   // Mengambil data produk untuk diedit
   useEffect(() => {
@@ -46,7 +50,8 @@ const UpdateMenu = () => {
   const [typeProduct, setTypeProduct] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    // Panggil fungsi untuk mendapatkan data tipe produk
+    const fetchTypeProduct = async () => {
       try {
         const result = await typeProductApi.getAllTypeProduct();
         setTypeProduct(result);
@@ -55,8 +60,79 @@ const UpdateMenu = () => {
       }
     };
 
-    fetchData();
+    // const fetchTypeProductUpdate = async () => { 
+    //   try {
+    //     const result = await typeProductApi.updateTypeProduct();
+    //     setEditedTypeProduct(result);
+    //   } catch (error) {
+    //     console.error("Gagal ambil data tipe produk:", error);
+    //   }
+    // }
+
+    // fetchTypeProductUpdate();
+    fetchTypeProduct();
   }, []);
+
+  // Fungsi untuk klik edit type product
+  // const handleEditTypeProduct = () => {
+  //   console.log('Klik edit type product');
+  //   // Di sini bisa buka modal atau redirect ke halaman edit
+  // };
+
+  // const handleSaveEdit = async () => {
+  //   try {
+  //     // Loop semua editedTypeProduct, lalu kirim ke API update
+  //     for (const tp of editedTypeProduct) {
+  //       await typeProductApi.updateTypeProduct(tp.id, { name: tp.name });
+  //     }
+  //     await fetchTypeProducts(); // Refresh data
+  //     setShowEditModal(false); // Tutup modal
+  //   } catch (error) {
+  //     console.error("Gagal update tipe produk:", error);
+  //   }
+  // };
+
+  // const handleEditedChange = (index, value) => {
+  //   const updated = [...editedTypeProduct];
+  //   updated[index].name = value;
+  //   setEditedTypeProduct(updated);
+  // };
+
+  // Fungsi untuk menangani tombol "Edit" di UpdateTypeProduct
+  const handleEditTypeProduct = () => {
+    setEditedTypeProduct(typeProduct); // Kirim data typeProduct ke modal
+    setShowEditModal(true); // Tampilkan modal
+  };
+
+  // Fungsi untuk menangani perubahan pada data yang diedit
+  const handleEditedChange = (index, newValue) => {
+    const updatedData = [...editedTypeProduct];
+    updatedData[index].name = newValue; // Update nama tipe produk yang diedit
+    setEditedTypeProduct(updatedData);
+  };
+
+  // Fungsi untuk menyimpan perubahan dan menutup modal
+  // const handleSaveEdit = () => {
+  //   setTypeProduct(editedTypeProduct); // Simpan perubahan ke state utama
+  //   setShowEditModal(false); // Tutup modal
+  // };
+
+  const handleSaveEdit = async () => {
+    try {
+      // Kirim editedTypeProduct ke API untuk update di server
+      await typeProductApi.updateTypeProduct(editedTypeProduct);
+  
+      // Setelah berhasil update, ambil data terbaru
+      const updatedData = await typeProductApi.getAllTypeProduct();
+      setTypeProduct(updatedData); // Update list yang baru dari server
+  
+      // Tutup modal
+      setShowEditModal(false);
+    } catch (error) {
+      console.error("Gagal update tipe produk:", error);
+    }
+  };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -147,8 +223,20 @@ const UpdateMenu = () => {
               </div>
 
               {/* Tipe Menu (Select) */}
+
               <div>
-                <label className="block text-gray-700 font-medium mb-2" htmlFor="type_id">
+                <UpdateTypeProduct
+                  formData={formData}
+                  handleChange={handleChange}
+                  typeProduct={typeProduct}
+                  saving={false} // Bisa ditambahkan jika ada proses saving
+                  onEditTypeProduct={handleEditTypeProduct}
+                />
+
+                <EditTypeProductModal show={showEditModal} editedTypeProduct={editedTypeProduct} onChange={handleEditedChange} onClose={() => setShowEditModal(false)} onSave={handleSaveEdit} />
+              </div>
+
+              {/* <label className="block text-gray-700 font-medium mb-2" htmlFor="type_id">
                   Tipe Menu <span className="text-red-500">*</span>
                 </label>
                 <select
@@ -165,8 +253,8 @@ const UpdateMenu = () => {
                       {type.name}
                     </option>
                   ))}
-                </select>
-              </div>
+                </select> */}
+              {/* </div> */}
 
               {/* Harga */}
               <div>

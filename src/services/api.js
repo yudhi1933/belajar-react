@@ -45,4 +45,14 @@ export const typeProductApi = {
     const response = await apiClient.post('/type-products',data);
     return response.data;
   },
+
+  updateTypeProduct: async (id, data) => {
+    const response = await apiClient.put(`/type-products/${id}`, data);
+    return response.data;
+  },
+
+  deleteTypeProduct: async (id) => {
+    await apiClient.delete(`/type-products/${id}`);
+    return true;
+  }
 }

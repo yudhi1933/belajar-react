@@ -114,12 +114,6 @@ const MenuIndex = () => {
               {type.name}
             </button>
           ))}
-          {/* <button onClick={() => setActiveTab("food")} className={`py-2 px-4 ${activeTab === "food" ? "border-b-2 border-blue-500 text-blue-600" : "text-gray-500 hover:text-gray-700"}`}>
-            Makanan
-          </button>
-          <button onClick={() => setActiveTab("drink")} className={`py-2 px-4 ${activeTab === "drink" ? "border-b-2 border-blue-500 text-blue-600" : "text-gray-500 hover:text-gray-700"}`}>
-            Minuman
-          </button> */}
         </div>
       </div>
 

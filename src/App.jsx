@@ -9,7 +9,7 @@ import CreateMenu from './pages/Restaurant/CreateMenu';
 import UpdateMenu from './pages/Restaurant/UpdateMenu';
 import DeleteMenu from './pages/Restaurant/DeleteMenu';
 // import TambahTypeMenu from './pages/Restaurant/TambahTypeMenu';
-import UpdateTypeProduct from './components/Restaurant/UpdateTypeProduct';
+import UpdateTypeProduct from './components/Restaurant/TypeProduct/UpdateTypeProduct';
 
 
 

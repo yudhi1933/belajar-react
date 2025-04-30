@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { productApi, typeProductApi } from '../../services/api';
-import TambahTypeMenu from '../../components/Restaurant/TambahTypeMenu'; // Import komponen untuk menambah type menu
+import TambahTypeMenu from '../../components/Restaurant/TypeProduct/TambahTypeMenu'; // Import komponen untuk menambah type menu
 
 const CreateMenu = () => {
   const navigate = useNavigate();

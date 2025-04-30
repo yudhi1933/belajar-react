@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {typeProductApi } from '../../services/api';
+import {typeProductApi } from '../../../services/api';
 // import TambahTypeMenu from './TambahTypeMenu';
 
 export default function TambahTypeMenu({ onSukses, onClose }) {

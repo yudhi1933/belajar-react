@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { productApi, typeProductApi } from "../../services/api";
-import UpdateTypeProduct from "../../components/Restaurant/UpdateTypeProduct";
-import EditTypeProductModal from "../../components/Restaurant/EditTypeProductModal";
+import UpdateTypeProduct from "../../components/Restaurant/TypeProduct/UpdateTypeProduct";
+import EditTypeProductModal from "../../components/Restaurant/TypeProduct/EditTypeProductModal";
 
 const UpdateMenu = () => {
   const { id } = useParams();

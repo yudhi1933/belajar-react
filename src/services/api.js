@@ -50,9 +50,6 @@ export const typeProductApi = {
     const response = await apiClient.put(`/type-products/${id}`, data);
     return response.data;
   },
-
-  deleteTypeProduct: async (id) => {
-    await apiClient.delete(`/type-products/${id}`);
-    return true;
-  }
+  
+  //untuk delete type product tidak perlu di buat karena sudah ada di product api
 }

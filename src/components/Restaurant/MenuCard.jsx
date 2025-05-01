@@ -8,6 +8,11 @@ const MenuCard = ({ product }) => {
     return typeId === 1 ? "Minuman" : typeId === 2 ? "Makanan" : "Lainnya";
   };
 
+  // Validasi ketika ada price yang 0 maka akan di tampilkan "Gratis"
+  const formatPrice = (price) => {
+    return price === 0 ? "Gratis" : `Rp ${price.toLocaleString("id-ID")}`;
+  };
+
   return (
     <div className="border rounded-md overflow-hidden shadow-sm hover:shadow-md transition-shadow">
       {product.img && (
@@ -28,7 +33,7 @@ const MenuCard = ({ product }) => {
           <h2 className="text-lg font-bold">{product.name}</h2>
           <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">{getMenuType(product.type_id)}</span>
         </div>
-        <p className="text-green-600 font-bold">Rp {product.price}</p>
+        <p className="text-green-600 font-bold">{formatPrice(product.price)}</p>
         <p className="text-sm text-gray-500 mt-1">Stok: {product.stock}</p>
         {product.description && <p className="text-gray-600 mt-2 text-sm">{product.description}</p>}
       </div>

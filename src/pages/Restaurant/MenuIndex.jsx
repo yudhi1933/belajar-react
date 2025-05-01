@@ -11,8 +11,6 @@ const MenuIndex = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState(""); // State untuk pencarian
   const [typeProduct, setTypeProduct] = useState([]); // State untuk tipe produk
-    // { id: 1, name: "Minuman" },
-    // { id: 2, name: "Makanan" }
 
   // Menggunakan READ API untuk mendapatkan semua produk
   useEffect(() => {
@@ -58,8 +56,6 @@ const MenuIndex = () => {
       return filtered;
     else // di filter berdasarkan id type
       return filtered.filter((product) => product.type_id === typeProduct.find((type) => type.id === activeTab).id);
-    // if (activeTab === "food") return filtered.filter((product) => product.type_id === 2);
-    // if (activeTab === "drink") return filtered.filter((product) => product.type_id === 1);
 
     return filtered;
   };

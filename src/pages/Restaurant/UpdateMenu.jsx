@@ -59,44 +59,8 @@ const UpdateMenu = () => {
         console.error("Gagal ambil data tipe produk:", error);
       }
     };
-
-    // const fetchTypeProductUpdate = async () => { 
-    //   try {
-    //     const result = await typeProductApi.updateTypeProduct();
-    //     setEditedTypeProduct(result);
-    //   } catch (error) {
-    //     console.error("Gagal ambil data tipe produk:", error);
-    //   }
-    // }
-
-    // fetchTypeProductUpdate();
     fetchTypeProduct();
   }, []);
-
-  // Fungsi untuk klik edit type product
-  // const handleEditTypeProduct = () => {
-  //   console.log('Klik edit type product');
-  //   // Di sini bisa buka modal atau redirect ke halaman edit
-  // };
-
-  // const handleSaveEdit = async () => {
-  //   try {
-  //     // Loop semua editedTypeProduct, lalu kirim ke API update
-  //     for (const tp of editedTypeProduct) {
-  //       await typeProductApi.updateTypeProduct(tp.id, { name: tp.name });
-  //     }
-  //     await fetchTypeProducts(); // Refresh data
-  //     setShowEditModal(false); // Tutup modal
-  //   } catch (error) {
-  //     console.error("Gagal update tipe produk:", error);
-  //   }
-  // };
-
-  // const handleEditedChange = (index, value) => {
-  //   const updated = [...editedTypeProduct];
-  //   updated[index].name = value;
-  //   setEditedTypeProduct(updated);
-  // };
 
   // Fungsi untuk menangani tombol "Edit" di UpdateTypeProduct
   const handleEditTypeProduct = () => {
@@ -110,12 +74,6 @@ const UpdateMenu = () => {
     updatedData[index].name = newValue; // Update nama tipe produk yang diedit
     setEditedTypeProduct(updatedData);
   };
-
-  // Fungsi untuk menyimpan perubahan dan menutup modal
-  // const handleSaveEdit = () => {
-  //   setTypeProduct(editedTypeProduct); // Simpan perubahan ke state utama
-  //   setShowEditModal(false); // Tutup modal
-  // };
 
   const handleSaveEdit = async () => {
     try {
@@ -235,26 +193,6 @@ const UpdateMenu = () => {
 
                 <EditTypeProductModal show={showEditModal} editedTypeProduct={editedTypeProduct} onChange={handleEditedChange} onClose={() => setShowEditModal(false)} onSave={handleSaveEdit} />
               </div>
-
-              {/* <label className="block text-gray-700 font-medium mb-2" htmlFor="type_id">
-                  Tipe Menu <span className="text-red-500">*</span>
-                </label>
-                <select
-                  id="type_id"
-                  name="type_id"
-                  value={formData.type_id}
-                  onChange={handleChange}
-                  className={`w-full border-2 ${getFieldBorderColor(formData.type_id)} rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white`}
-                  disabled={saving}
-                >
-                  <option value="">Pilih Tipe Menu</option>
-                  {typeProduct.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.name}
-                    </option>
-                  ))}
-                </select> */}
-              {/* </div> */}
 
               {/* Harga */}
               <div>

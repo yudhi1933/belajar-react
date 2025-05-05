@@ -108,11 +108,11 @@ const MenuIndex = () => {
       {/* Tab Filter */}
       <div className="mb-6 w-full overflow-x-auto">
         <div className="flex space-x-4 whitespace-nowrap">
-          <button onClick={() => setActiveTab(0)} className={`py-2 px-4 ${activeTab === 0 ? "border-b-2 border-blue-500 text-blue-600" : "text-gray-500 hover:text-gray-700"}`}>
+          <button onClick={() => setActiveTab(0)} className={`py-2 px-4 ${activeTab === 0 ? "border-b-2 border-blue-500 text-blue-600 hover:cursor-pointer" : "text-gray-500 hover:text-gray-700 hover:cursor-pointer"}`}>
             Semua Menu
           </button>
           {typeProduct.map((type) => (
-            <button key={type.id} onClick={() => setActiveTab(type.id)} className={`py-2 px-4 ${activeTab === type.id ? "border-b-2 border-blue-500 text-blue-600" : "text-gray-500 hover:text-gray-700"}`}>
+            <button key={type.id} onClick={() => setActiveTab(type.id)} className={`py-2 px-4 ${activeTab === type.id ? "border-b-2 border-blue-500 text-blue-600 hover:cursor-pointer" : "text-gray-500 hover:text-gray-700 hover:cursor-pointer"}`}>
               {type.name}
             </button>
           ))}

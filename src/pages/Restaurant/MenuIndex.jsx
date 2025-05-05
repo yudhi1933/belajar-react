@@ -4,13 +4,17 @@ import { productApi, typeProductApi } from "../../services/api";
 import MenuCard from "../../components/Restaurant/MenuCard";
 
 const MenuIndex = () => {
+  // State untuk menyimpan data produk
   const [products, setProducts] = useState([]);
+  // State untuk loading
   const [loading, setLoading] = useState(true);
+  // State untuk error
   const [error, setError] = useState(null);
-  // const [activeTab, setActiveTab] = useState("all");
   const [activeTab, setActiveTab] = useState(0);
+  // State untuk menyimpan data produk yang difilter
   const [searchQuery, setSearchQuery] = useState(""); // State untuk pencarian
   const [typeProduct, setTypeProduct] = useState([]); // State untuk tipe produk
+
 
   // Menggunakan READ API untuk mendapatkan semua produk
   useEffect(() => {
@@ -20,6 +24,8 @@ const MenuIndex = () => {
         const data = await productApi.getProducts();
         setProducts(data);
         setError(null);
+        // mengurutkan data berdasarkan id terbesar ke terkecil
+        data.sort((a, b) => b.id - a.id);
       } catch (error) {
         console.error("Error fetching products:", error);
         setError("Gagal memuat data. Silakan coba lagi nanti.");

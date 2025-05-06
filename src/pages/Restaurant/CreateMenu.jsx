@@ -1,123 +1,116 @@
 // src/pages/Restaurant/CreateMenu.jsx
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { productApi, typeProductApi } from '../../services/api';
-import TambahTypeMenu from '../../components/Restaurant/TypeProduct/TambahTypeMenu'; // Import komponen untuk menambah type menu
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { productApi, typeProductApi } from "../../services/api";
+// import TambahTypeMenu from '../../components/Restaurant/TypeProduct/TambahTypeMenu'; // Import komponen untuk menambah type menu
+import CreateTypeModal from "../../components/Restaurant/TypeProduct/CreateTypeModal"; // Import komponen untuk menambah type menu
 
 const CreateMenu = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
-    type_id: '',
-    price: '',
-    stock: '',
-    img: '',
-    description: '',
+    name: "",
+    type_id: "",
+    price: "",
+    stock: "",
+    img: "",
+    description: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   // Menggunakan READ type product API untuk mendapatkan semua produk
   const [typeProduct, setTypeProduct] = useState([]);
   // menggunakan POST type product API untuk menambah type product
-  const [showModal, setShowModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State untuk mengontrol modal
+  // const [showModal, setShowModal] = useState(false);
 
-  
-    // ambil data semua type product dari API 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const result = await typeProductApi.getAllTypeProduct();
-          setTypeProduct(result);
-        } catch (error) {
-          console.error("Gagal ambil data tipe produk:", error);
-        } finally {
-          setLoading(false);
-        }
+  // ambil data semua type product dari API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await typeProductApi.getAllTypeProduct();
+        setTypeProduct(result);
+      } catch (error) {
+        console.error("Gagal ambil data tipe produk:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
-      };
-      fetchData();
-    }, []);
-
-    // Fungsi dipanggil setelah berhasil tambah type baru
-    const handleSuksesTambah = (typeBaru) => {
-    setTypeProduct(prev => [...prev, typeBaru]); // tambah ke list
-    setFormData(prev => ({ ...prev, type_id: typeBaru.id })); // langsung pilih
-    console.warning('Tipe produk baru ditambahkan:', typeBaru);
+  //   // Fungsi dipanggil setelah berhasil tambah type baru
+  const handleCreateType = (typeBaru) => {
+    setTypeProduct((prev) => [...prev, typeBaru]); // tambah ke list
+    setFormData((prev) => ({ ...prev, type_id: typeBaru.id })); // langsung pilih
+    console.warning("Tipe produk baru ditambahkan:", typeBaru);
     console.warning(formData);
-    setShowModal(false);  // tutup modal
+    setIsModalOpen(false); // tutup modal
   };
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
-  
+
   // Menggunakan CREATE API
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       setLoading(true);
       setError(null);
       await productApi.createProduct(formData);
-      navigate('/restaurant');
+      navigate("/restaurant");
     } catch (error) {
-      console.error('Error creating product:', error);
-      setError('Gagal menambahkan menu. Silakan coba lagi.');
+      console.error("Error creating product:", error);
+      setError("Gagal menambahkan menu. Silakan coba lagi.");
     } finally {
       setLoading(false);
     }
   };
-  
+
   // Cek apakah form valid (untuk tombol submit)
-  const isFormValid = 
-    formData.name.trim() !== '' && 
-    formData.type_id !== '' && 
-    formData.price !== '' && 
-    formData.stock !== '' && 
-    formData.img.trim() !== '' && 
-    formData.description.trim() !== '';
-  
+  const isFormValid = formData.name.trim() !== "" && formData.type_id !== "" && formData.price !== "" && formData.stock !== "" && formData.img.trim() !== "" && formData.description.trim() !== "";
+
   // Helper function untuk menentukan warna border field
   const getFieldBorderColor = (fieldValue) => {
-    if (!fieldValue || fieldValue === '') {
-      return 'border-red-500'; // Belum diisi (merah)
+    if (!fieldValue || fieldValue === "") {
+      return "border-red-500"; // Belum diisi (merah)
     }
-    return 'border-green-500'; // Sudah diisi (hijau)
+    return "border-green-500"; // Sudah diisi (hijau)
   };
-  
+
   // Preview gambar
   const imagePreview = formData.img ? (
     <div className="mt-2">
-      <img 
-        src={formData.img} 
-        alt="Preview" 
+      <img
+        src={formData.img}
+        alt="Preview"
         className="h-40 object-cover rounded-md"
         onError={(e) => {
           e.target.onerror = null;
-          e.target.src = 'https://via.placeholder.com/300x200?text=Broken+Image';
+          e.target.src = "https://via.placeholder.com/300x200?text=Broken+Image";
         }}
       />
     </div>
   ) : null;
-  
+
   return (
     <div className="container mx-auto p-4">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-800">Tambah Menu Baru</h1>
         <p className="text-gray-600 mt-1">Masukkan informasi untuk menu baru</p>
       </div>
-      
+
       {error && (
         <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
           <p>{error}</p>
         </div>
       )}
-      
+
       <div className="bg-white rounded-lg shadow-md p-6">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -137,34 +130,39 @@ const CreateMenu = () => {
                 disabled={loading}
               />
             </div>
-            
+
             {/* Tipe Menu (Select) */}
             <div>
               <label className="block text-gray-700 font-medium mb-2" htmlFor="type_id">
                 Tipe Menu <span className="text-red-500">*</span>
               </label>
-              <div className='flex'>
-              <select
-                id="type_id"
-                name="type_id"
-                value={formData.type_id}
-                onChange={handleChange}
-                className={`w-full border-2 ${getFieldBorderColor(formData.type_id)} rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white`}
-                disabled={loading}
-              >
-                <option value="">Pilih Tipe Menu</option>
-                {typeProduct.map((type) => (
-                  <option key={type.id} value={type.id}>
-                    {type.name}
-                  </option>
-                ))}
-              </select>
-              <button onClick={() => setShowModal(true)} style={{ marginLeft: '10px' }} className="bg-blue-500 rounded-md px-3 py-2 text-white ml-2">
+              <div className="flex">
+                <select
+                  id="type_id"
+                  name="type_id"
+                  value={formData.type_id}
+                  onChange={handleChange}
+                  className={`w-full border-2 ${getFieldBorderColor(formData.type_id)} rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white`}
+                  disabled={loading}
+                >
+                  <option value="">Pilih Tipe Menu</option>
+                  {typeProduct.map((type) => (
+                    <option key={type.id} value={type.id}>
+                      {type.name}
+                    </option>
+                  ))}
+                </select>
+                {/* <button onClick={() => setShowModal(true)} style={{ marginLeft: '10px' }} className="bg-blue-500 rounded-md px-3 py-2 text-white ml-2">
                 Tambah
               </button>
               {showModal && (
                 <TambahTypeMenu onSukses={handleSuksesTambah} onClose={() => setShowModal(false)} />
-              )}
+              )} */}
+                <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                  Tambah Tipe
+                </button>
+
+                <CreateTypeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleCreateType} />
               </div>
             </div>
             {/* Harga */}
@@ -184,7 +182,7 @@ const CreateMenu = () => {
                 disabled={loading}
               />
             </div>
-            
+
             {/* Stok */}
             <div>
               <label className="block text-gray-700 font-medium mb-2" htmlFor="stock">
@@ -202,7 +200,7 @@ const CreateMenu = () => {
                 disabled={loading}
               />
             </div>
-            
+
             {/* Gambar (URL) */}
             <div className="md:col-span-2">
               <label className="block text-gray-700 font-medium mb-2" htmlFor="img">
@@ -220,7 +218,7 @@ const CreateMenu = () => {
               />
               {imagePreview}
             </div>
-            
+
             {/* Deskripsi */}
             <div className="md:col-span-2">
               <label className="block text-gray-700 font-medium mb-2" htmlFor="description">
@@ -238,11 +236,11 @@ const CreateMenu = () => {
               />
             </div>
           </div>
-          
+
           <div className="mt-8 flex items-center justify-end gap-3">
             <button
               type="button"
-              onClick={() => navigate('/restaurant')}
+              onClick={() => navigate("/restaurant")}
               className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               disabled={loading}
             >
@@ -250,11 +248,7 @@ const CreateMenu = () => {
             </button>
             <button
               type="submit"
-              className={`px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-                isFormValid 
-                  ? 'bg-blue-600 hover:bg-blue-700' 
-                  : 'bg-gray-400 cursor-not-allowed'
-              }`}
+              className={`px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${isFormValid ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400 cursor-not-allowed"}`}
               disabled={loading || !isFormValid}
             >
               {loading ? (
@@ -266,16 +260,12 @@ const CreateMenu = () => {
                   Menyimpan...
                 </>
               ) : (
-                'Simpan Menu'
+                "Simpan Menu"
               )}
             </button>
           </div>
-          
-          {!isFormValid && (
-            <div className="mt-2 text-center text-red-500 text-sm">
-              Harap lengkapi semua bidang yang ditandai (*) untuk menyimpan menu
-            </div>
-          )}
+
+          {!isFormValid && <div className="mt-2 text-center text-red-500 text-sm">Harap lengkapi semua bidang yang ditandai (*) untuk menyimpan menu</div>}
         </form>
       </div>
     </div>

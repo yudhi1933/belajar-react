@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { productApi, typeProductApi } from "../../services/api";
-// import TambahTypeMenu from '../../components/Restaurant/TypeProduct/TambahTypeMenu'; // Import komponen untuk menambah type menu
 import CreateTypeModal from "../../components/Restaurant/TypeProduct/CreateTypeModal"; // Import komponen untuk menambah type menu
 
 const CreateMenu = () => {
@@ -38,7 +37,7 @@ const CreateMenu = () => {
     fetchData();
   }, []);
 
-  //   // Fungsi dipanggil setelah berhasil tambah type baru
+  // Fungsi dipanggil setelah berhasil tambah type baru
   const handleCreateType = (typeBaru) => {
     setTypeProduct((prev) => [...prev, typeBaru]); // tambah ke list
     setFormData((prev) => ({ ...prev, type_id: typeBaru.id })); // langsung pilih
@@ -152,17 +151,10 @@ const CreateMenu = () => {
                     </option>
                   ))}
                 </select>
-                {/* <button onClick={() => setShowModal(true)} style={{ marginLeft: '10px' }} className="bg-blue-500 rounded-md px-3 py-2 text-white ml-2">
-                Tambah
-              </button>
-              {showModal && (
-                <TambahTypeMenu onSukses={handleSuksesTambah} onClose={() => setShowModal(false)} />
-              )} */}
-                <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                  Tambah Tipe
+                <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600 mb-4 hover:cursor-pointer ml-2" disabled={loading}>
+                  Tambah
                 </button>
-
-                <CreateTypeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleCreateType} />
+                <CreateTypeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSuccess={handleCreateType} />
               </div>
             </div>
             {/* Harga */}

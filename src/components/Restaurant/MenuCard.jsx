@@ -2,11 +2,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MenuCard = ({ product }) => {
-  // Mendapatkan jenis menu berdasarkan type_id
-  const getMenuType = (typeId) => {
-    return typeId === 1 ? "Minuman" : typeId === 2 ? "Makanan" : "Lainnya";
-  };
+const MenuCard = ({ product, typeProduct }) => {
+  // Mendapatkan tipe menu berdasarkan id produk
+
+  // Mendapatkan tipe menu berdasarkan id produk
+  const getMenuType = typeProduct.find((type) => type.id === product.type_id);
 
   // Validasi ketika ada price yang 0 maka akan di tampilkan "Gratis"
   const formatPrice = (price) => {
@@ -31,7 +31,7 @@ const MenuCard = ({ product }) => {
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h2 className="text-lg font-bold">{product.name}</h2>
-          <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">{getMenuType(product.type_id)}</span>
+          <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">{getMenuType.name}</span>
         </div>
         <p className="text-green-600 font-bold">{formatPrice(product.price)}</p>
         <p className="text-sm text-gray-500 mt-1">Stok: {product.stock}</p>

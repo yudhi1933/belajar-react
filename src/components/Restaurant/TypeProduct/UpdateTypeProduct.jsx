@@ -1,11 +1,18 @@
-import React from "react";
-
-// const UpdateTypeProduct = ({ formData, handleChange, typeProduct, saving, onEditTypeProduct }) => {
-const getFieldBorderColor = (value) => {
-  return value ? "border-green-500" : "border-red-500";
-};
+import React, { useEffect } from "react";
 
 const UpdateTypeProduct = ({ formData, handleChange, typeProduct, saving, onEditTypeProduct }) => {
+  const [statusTypeProduct, setStatusTypeProduct] = React.useState();
+
+  useEffect(() => {
+    setStatusTypeProduct(formData.type_id);
+  },[formData.type_id]);
+  
+  // Fungsi untuk mendapatkan warna border berdasarkan nilai field
+  const getFieldBorderColor = (value) => {
+    if (!value) return "border-red-300"; // Warna border default
+    return "border-green-500"; // Warna border jika ada nilai
+  };
+    
   return (
     <div>
       <label className="block text-gray-700 font-medium mb-2" htmlFor="type_id">
@@ -22,13 +29,13 @@ const UpdateTypeProduct = ({ formData, handleChange, typeProduct, saving, onEdit
         >
           <option value="">Pilih Tipe Menu</option>
           {typeProduct.map((type) => (
-            <option key={type.id} value={type.id}>
+            <option key={type.id} value={type.id} onClick={() => setStatusTypeProduct(type.id)}>
               {type.name}
             </option>
           ))}
         </select>
 
-        <button className="px-3 py-2 bg-yellow-400 text-white font-semibold rounded-md hover:bg-yellow-500 focus:outline-none" onClick={onEditTypeProduct}>
+        < button type="button" className="px-3 py-2 bg-yellow-400 text-white font-semibold rounded-md hover:bg-yellow-500 focus:outline-none hover:cursor-pointer" onClick={() => onEditTypeProduct(statusTypeProduct)}>
           Edit
         </button>
       </div>

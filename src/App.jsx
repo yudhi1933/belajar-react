@@ -8,9 +8,6 @@ import MenuIndex from './pages/Restaurant/MenuIndex';
 import CreateMenu from './pages/Restaurant/CreateMenu';
 import UpdateMenu from './pages/Restaurant/UpdateMenu';
 import DeleteMenu from './pages/Restaurant/DeleteMenu';
-// import TambahTypeMenu from './pages/Restaurant/TambahTypeMenu';
-import UpdateTypeProduct from './components/Restaurant/TypeProduct/UpdateTypeProduct';
-
 
 
 function App() {
@@ -32,11 +29,6 @@ function App() {
         <Route path="/restaurant/create" element={<CreateMenu />} />
         <Route path="/restaurant/edit/:id" element={<UpdateMenu />} />
         <Route path="/restaurant/delete/:id" element={<DeleteMenu />} />
-        {/* <Route path ="/restaurant/tambahType/:id" element={<TambahTypeMenu/>} /> */}
-
-        {/* <Route path="/restaurant/updateTypeProduct" element={<UpdateTypeProduct />} /> */}
-        <Route path="/restaurant/updateTypeProduct/:id" element={<UpdateTypeProduct />} />
-        {/* <Route path="/restaurant/updateTypeProduct/:id" element={<UpdateTypeProduct />} /> */}
       </Routes>
     </BrowserRouter>
   )

@@ -20,9 +20,35 @@ const UpdateMenu = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editedTypeProduct, setEditedTypeProduct] = useState([]);
+  const [editedTypeProduct, setEditedTypeProduct] = useState({});
+  // Menggunakan READ API untuk mendapatkan semua produk
+  const [typeProduct, setTypeProduct] = useState([]);
 
   // Mengambil data produk untuk diedit
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const products = await productApi.getProducts();
+  //       const product = products.find((p) => p.id == id);
+  //       if (product) {
+  //         setFormData(product);
+  //       } else {
+  //         setError("Menu tidak ditemukan");
+  //         navigate("/restaurant");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching product:", error);
+  //       setError("Gagal memuat data menu. Silakan coba lagi nanti.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchProduct();
+  // }, [id, navigate]);
+
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -33,6 +59,7 @@ const UpdateMenu = () => {
           setFormData(product);
         } else {
           setError("Menu tidak ditemukan");
+          console.error("Menu tidak ditemukan");
           navigate("/restaurant");
         }
       } catch (error) {
@@ -44,12 +71,6 @@ const UpdateMenu = () => {
     };
 
     fetchProduct();
-  }, [id, navigate]);
-
-  // Menggunakan READ API untuk mendapatkan semua produk
-  const [typeProduct, setTypeProduct] = useState([]);
-
-  useEffect(() => {
     // Panggil fungsi untuk mendapatkan data tipe produk
     const fetchTypeProduct = async () => {
       try {
@@ -63,8 +84,12 @@ const UpdateMenu = () => {
   }, []);
 
   // Fungsi untuk menangani tombol "Edit" di UpdateTypeProduct
-  const handleEditTypeProduct = () => {
-    setEditedTypeProduct(typeProduct); // Kirim data typeProduct ke modal
+  const handleEditTypeProduct = (idTypeProduct) => {
+    // setEditedTypeProduct(typeProduct); // Kirim data typeProduct ke modal
+    console.log("idTypeProduct", idTypeProduct);
+    console.log(typeProduct.find((p) => p.id == idTypeProduct));
+    setEditedTypeProduct(typeProduct.find((p) => p.id == idTypeProduct)); // Kirim data typeProduct ke modal
+    // setEditedTypeProduct(typeProduct.find((p) => p.id == idTypeProduct)); // Kirim data typeProduct ke modal
     setShowEditModal(true); // Tampilkan modal
   };
 
@@ -77,17 +102,16 @@ const UpdateMenu = () => {
 
   const handleSaveEdit = async () => {
     try {
-      // Kirim editedTypeProduct ke API untuk update di server
-      await typeProductApi.updateTypeProduct(editedTypeProduct);
-  
-      // Setelah berhasil update, ambil data terbaru
-      const updatedData = await typeProductApi.getAllTypeProduct();
-      setTypeProduct(updatedData); // Update list yang baru dari server
-  
-      // Tutup modal
-      setShowEditModal(false);
+      setSaving(true);
+      setError(null);
+      await typeProductApi.updateTypeProduct(editedTypeProduct); // Kirim data yang diedit ke API
+      setTypeProduct(editedTypeProduct); // Update state typeProduct dengan data yang diedit
+      setShowEditModal(false); // Tutup modal
     } catch (error) {
-      console.error("Gagal update tipe produk:", error);
+      console.error("Error updating type product:", error);
+      setError("Gagal memperbarui tipe produk. Silakan coba lagi.");
+    } finally {
+      setSaving(false);
     }
   };
   
@@ -187,11 +211,22 @@ const UpdateMenu = () => {
                   formData={formData}
                   handleChange={handleChange}
                   typeProduct={typeProduct}
-                  saving={false} // Bisa ditambahkan jika ada proses saving
+                  saving={saving}
                   onEditTypeProduct={handleEditTypeProduct}
                 />
 
-                <EditTypeProductModal show={showEditModal} editedTypeProduct={editedTypeProduct} onChange={handleEditedChange} onClose={() => setShowEditModal(false)} onSave={handleSaveEdit} />
+                {
+                  showEditModal && (
+                    <EditTypeProductModal
+                      // show={showEditModal}
+                      editedTypeProduct={editedTypeProduct}
+                      onChange={handleEditedChange}
+                      onClose={() => setShowEditModal(false)}
+                      onSave={handleSaveEdit}
+                    />
+                  )
+                }
+                {/* <EditTypeProductModal show={showEditModal} editedTypeProduct={editedTypeProduct} onChange={handleEditedChange} onClose={() => setShowEditModal(false)} onSave={handleSaveEdit} /> */}
               </div>
 
               {/* Harga */}

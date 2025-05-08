@@ -141,7 +141,7 @@ const MenuIndex = () => {
           {searchQuery ? (
             <p className="text-gray-600">Tidak ada menu yang cocok dengan pencarian "{searchQuery}".</p>
           ) : (
-            <p className="text-gray-600">{activeTab === "all" ? "Belum ada menu yang tersedia." : activeTab === "food" ? "Belum ada menu makanan yang tersedia." : "Belum ada menu minuman yang tersedia."}</p>
+            <p className="text-gray-600">{typeProduct.find((type) => type.id === activeTab)?.name} masih kosong</p>
           )}
           <Link to="/restaurant/create" className="inline-block mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
             Tambah Menu Baru

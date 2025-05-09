@@ -38,14 +38,14 @@ const EditTypeProductModal = ({editedTypeProduct, onChange, onClose, onSave }) =
         <div className="flex justify-end space-x-2">
           <button
             type= "button"
-            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+            className="hover:cursor-pointer bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
             onClick={onClose} // Fungsi untuk menutup modal
           >
             Batal
           </button>
           <button
             type="button"
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            className="hover:cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
             onClick={onSave} // Fungsi untuk menyimpan perubahan
           >
             Simpan

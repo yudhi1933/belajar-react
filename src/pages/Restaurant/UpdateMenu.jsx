@@ -144,7 +144,7 @@ const UpdateMenu = () => {
   // Cek apakah form valid (untuk tombol submit)
   const isEmpty = (val) =>
     val === "" || val === null || val === undefined;
-  
+
   const isFormValid = 
     !isEmpty(formData.name.trim()) &&
     !isEmpty(formData.type_id) &&
@@ -317,7 +317,7 @@ const UpdateMenu = () => {
               </button>
               <button
                 type="submit"
-                className={`hover:cursor-pointer px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${isFormValid ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400 cursor-not-allowed"}`}
+                className={`px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${isFormValid ? "bg-blue-600 hover:bg-blue-700 hover:cursor-pointer" : "bg-gray-400 cursor-not-allowed"}`}
                 disabled={saving || !isFormValid}
               >
                 {saving ? (

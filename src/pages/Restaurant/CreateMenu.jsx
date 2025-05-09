@@ -151,7 +151,7 @@ const CreateMenu = () => {
                     </option>
                   ))}
                 </select>
-                <button onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600 mb-4 hover:cursor-pointer ml-2" disabled={loading}>
+                <button type="button" onClick={() => setIsModalOpen(true)} className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600 mb-4 hover:cursor-pointer ml-2" disabled={loading}>
                   Tambah
                 </button>
                 <CreateTypeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSuccess={handleCreateType} />
@@ -233,14 +233,14 @@ const CreateMenu = () => {
             <button
               type="button"
               onClick={() => navigate("/restaurant")}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="hover:cursor-pointer px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               disabled={loading}
             >
               Batal
             </button>
             <button
               type="submit"
-              className={`px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${isFormValid ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400 cursor-not-allowed"}`}
+              className={`px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${isFormValid ? "bg-blue-600 hover:bg-blue-700 hover:cursor-pointer" : "bg-gray-400 cursor-not-allowed"}`}
               disabled={loading || !isFormValid}
             >
               {loading ? (

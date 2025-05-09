@@ -46,6 +46,7 @@ export default function CreateTypeModal({ isOpen, onClose, onSuccess }) {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Tambah Tipe Baru</h2>
           <button
+            type='button'
             onClick={onClose}
             className="text-gray-500 hover:text-red-500 text-lg font-bold"
           >
@@ -62,12 +63,14 @@ export default function CreateTypeModal({ isOpen, onClose, onSuccess }) {
         />
         <div className="flex justify-end space-x-2">
           <button
+            type='button'
             onClick={onClose}
             className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 hover:cursor-pointer"
           >
             Batal
           </button>
           <button
+            type="button"
             onClick={handleSubmitType}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 hover:cursor-pointer"
           >

@@ -142,11 +142,20 @@ const UpdateMenu = () => {
   };
 
   // Cek apakah form valid (untuk tombol submit)
-  const isFormValid = formData.name.trim() !== "" && formData.type_id !== "" && formData.price !== "" && formData.stock !== "" && formData.img.trim() !== "" && formData.description.trim() !== "";
+  const isEmpty = (val) =>
+    val === "" || val === null || val === undefined;
+  
+  const isFormValid = 
+    !isEmpty(formData.name.trim()) &&
+    !isEmpty(formData.type_id) &&
+    !isEmpty(formData.price) &&
+    !isEmpty(formData.stock) &&
+    !isEmpty(formData.img.trim()) &&
+    !isEmpty(formData.description.trim());
 
   // Helper function untuk menentukan warna border field
   const getFieldBorderColor = (fieldValue) => {
-    if (!fieldValue || fieldValue === "") {
+    if (isEmpty(fieldValue)) {
       return "border-red-500"; // Belum diisi (merah)
     }
     return "border-green-500"; // Sudah diisi (hijau)
@@ -301,14 +310,14 @@ const UpdateMenu = () => {
               <button
                 type="button"
                 onClick={() => navigate("/restaurant")}
-                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="hover:cursor-pointer px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 disabled={saving}
               >
                 Batal
               </button>
               <button
                 type="submit"
-                className={`px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${isFormValid ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400 cursor-not-allowed"}`}
+                className={`hover:cursor-pointer px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${isFormValid ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400 cursor-not-allowed"}`}
                 disabled={saving || !isFormValid}
               >
                 {saving ? (

@@ -20,7 +20,7 @@ const UpdateMenu = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editedTypeProduct, setEditedTypeProduct] = useState({});
+  const [editedTypeProduct, setEditedTypeProduct] = useState([]);
   // Menggunakan READ API untuk mendapatkan semua produk
   const [typeProduct, setTypeProduct] = useState([]);
 
@@ -88,15 +88,14 @@ const UpdateMenu = () => {
     // setEditedTypeProduct(typeProduct); // Kirim data typeProduct ke modal
     console.log("idTypeProduct", idTypeProduct);
     console.log(typeProduct.find((p) => p.id == idTypeProduct));
-    setEditedTypeProduct(typeProduct.find((p) => p.id == idTypeProduct)); // Kirim data typeProduct ke modal
-    // setEditedTypeProduct(typeProduct.find((p) => p.id == idTypeProduct)); // Kirim data typeProduct ke modal
+    setEditedTypeProduct(typeProduct.find((p) => p.id  == idTypeProduct)); // Kirim data typeProduct ke modal
     setShowEditModal(true); // Tampilkan modal
   };
 
   // Fungsi untuk menangani perubahan pada data yang diedit
   const handleEditedChange = (index, newValue) => {
-    const updatedData = [...editedTypeProduct];
-    updatedData[index].name = newValue; // Update nama tipe produk yang diedit
+    const updatedData = { ...editedTypeProduct };
+    updatedData[index] = { ...updatedData[index], name: newValue}; // Update nama tipe produk yang diedit
     setEditedTypeProduct(updatedData);
   };
 

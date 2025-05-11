@@ -24,31 +24,6 @@ const UpdateMenu = () => {
   // Menggunakan READ API untuk mendapatkan semua produk
   const [typeProduct, setTypeProduct] = useState([]);
 
-  // Mengambil data produk untuk diedit
-  // useEffect(() => {
-  //   const fetchProduct = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const products = await productApi.getProducts();
-  //       const product = products.find((p) => p.id == id);
-  //       if (product) {
-  //         setFormData(product);
-  //       } else {
-  //         setError("Menu tidak ditemukan");
-  //         navigate("/restaurant");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching product:", error);
-  //       setError("Gagal memuat data menu. Silakan coba lagi nanti.");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchProduct();
-  // }, [id, navigate]);
-
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {

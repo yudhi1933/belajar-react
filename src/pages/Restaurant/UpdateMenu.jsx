@@ -78,17 +78,18 @@ const UpdateMenu = () => {
     try {
       setSaving(true);
       setError(null);
-      await typeProductApi.updateTypeProduct(editedTypeProduct); // Kirim data yang diedit ke API
+      await typeProductApi.updateTypeProduct(editedTypeProduct.id, editedTypeProduct);
       setTypeProduct(editedTypeProduct); // Update state typeProduct dengan data yang diedit
       setShowEditModal(false); // Tutup modal
     } catch (error) {
       console.error("Error updating type product:", error);
+      console.log('Detail error', error.response.data);
       setError("Gagal memperbarui tipe produk. Silakan coba lagi.");
     } finally {
       setSaving(false);
     }
   };
-  
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

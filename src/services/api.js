@@ -46,7 +46,7 @@ export const typeProductApi = {
     return response.data;
   },
 
-  updateTypeProduct: async (id, data) => {
+  updateTypeProduct: async (id,data) => {
     const response = await apiClient.put(`/type-products/${id}`, data);
     return response.data;
   },
